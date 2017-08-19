@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_ui_policy">
+    <sys_ui_policy action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <conditions table="x_58872_needit_needit">u_when_neededONToday@javascript:gs.daysAgoStart(0)@javascript:gs.daysAgoEnd(0)^EQ<item endquery="false" field="u_when_needed" goto="false" newquery="false" operator="ON" or="false" value="Today@javascript:gs.daysAgoStart(0)@javascript:gs.daysAgoEnd(0)"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </conditions>
+        <description/>
+        <global>true</global>
+        <inherit>false</inherit>
+        <model_id/>
+        <model_table/>
+        <on_load>true</on_load>
+        <order>100</order>
+        <reverse_if_false>true</reverse_if_false>
+        <run_scripts>true</run_scripts>
+        <script_false><![CDATA[function onCondition() {
+	    // Clear the field message written by the Execute if true script for the Other field
+	g_form.hideFieldMsg('u_other',true);
+	alert("Execute if false");
+}
+/*
+Question: Why does the message appear twice underneath the Other field?
+
+Answer: Every time there is a change to the What needed field value, the UI Policy executes its logic. The Execute if true script writes a new message every time the What needed field value changes to Other. There is currently no logic in the UI Policy scripts to clear the message(s).
+
+
+Note these points in the debugging information:
+    The Short description value for the UI Policy and table name.
+    The statement of the condition(s) and result of evaluating that line of the condition<T/F>.
+    The overall value returned by the condition<T/F>.
+    UI Policy Actions setting field attributes <M;V;RO>.
+
+When you are done debugging, use the Application Navigator to open System Diagnostics > Session Debug > Disable UI Policies Debug. 
+
+
+Debug UI Policy Scripts using the same strategies discussed earlier in this module:
+
+    JavaScript Log and jslog()
+    Field Watcher
+    Try/Catch
+    Debugging tools built into web browsers (browser dependent)
+
+
+*/
+]]></script_false>
+        <script_true><![CDATA[function onCondition() {
+		// Display a message under the Other field to explain what to put in the
+		// Other field.
+		g_form.showFieldMsg('u_other','Briefly explain what you need.','info');
+		alert("Execute if true");
+	 }
+	 
+/*
+Although the Order field is not on the Client Script form baseline you can customize the form to add it.
+
+UI Policies execute after Client Scripts. If there is conflicting logic between a Client Script and a UI Policy, the UI Policy logic applies. 
+
+UI Policy scripts use the client-side API to execute script logic based on whether the UI Policy condition tests true or false. Use UI Policy scripts to create complex conditional checks or to take actions other than setting field attributes (mandatory, read-only, or visible).
+
+The scripting fields for UI Policies are only visible in the Advanced view. To enable the scripting fields, select the Run scripts option.
+
+    The Execute if true script executes when the UI Policy condition tests true.
+    The Execute if false script executes when the UI Policy condition tests false.
+
+Developers can write scripts in one or both script fields depending on the application requirements.
+
+Write your script logic inside the onCondition function which is automatically inserted in the scripting fields. The onCondition() function is called by the UI Policy at runtime. 
+
+IMPORTANT: The Reverse if false option must be selected for the Execute if false script to run.
+
+Although UI Policy Actions execute on all platforms<Desktop;Mobile/Service Portal;All>, UI Policy Scripts execute on Desktop/tablet only in the default case. Use the Run scripts in UI type field to select the platform(s) for the UI Policy scripts. 
+
+What happens when the UI Policy condition tests false? There are two possible outcomes:
+
+    No action is taken
+    The opposite action is taken
+
+How does ServiceNow know which to do? The decision is made by the Reverse if false option in the UI Policy trigger.
+
+    If Reverse if false is selected (default), the opposite action is taken in the UI Policy Actions. If a field is mandatory (true), the field will no longer be mandatory (false). That is to say, attributes which were true become false, and false become true. There are no changes to attributes which are set to Leave alone.
+    If Reverse if false is not selected, no UI Policy Action logic is applied.
+
+
+*/]]></script_true>
+        <set_values/>
+        <short_description>NeedIt UIP1 show or hide Other field </short_description>
+        <sys_class_name>sys_ui_policy</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-08-19 18:24:02</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f9273c7f4f280300a523fa218110c774</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>NeedIt UIP1 show or hide Other field </sys_name>
+        <sys_overrides/>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_ui_policy_f9273c7f4f280300a523fa218110c774</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-08-19 19:01:29</sys_updated_on>
+        <table>x_58872_needit_needit</table>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_ui_policy>
+</record_update>
